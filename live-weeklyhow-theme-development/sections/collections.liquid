@@ -1,0 +1,51 @@
+<div>
+    <div class="flex justify-between items-center border-b">
+        <div class="">
+            <span class="text-lg font-medium">Shop From </span>
+            <span class="text-lg font-medium primary-text">{{ section.settings.title }}</span>
+        </div>
+        <a href="#" class="inline-block font-medium">
+            <div class="flex gap-x-1 items-center">
+                <span>View All</span>
+                {% render 'icon-arrow-right' %}
+            </div>
+        </a>
+    </div>
+
+    <div class="flex items-center justify-between gap-5 mt-5">
+        {% for collection in collections %}
+            <div class="flex flex-col items-center gap-y-5">
+                <div class="w-[150px] overflow-hidden rounded-full">
+                    <a href="{{ collection.url }}">
+                        {% if collection.featured_image %}
+                            {{ collection.featured_image | image_url: width: 150  | image_tag: class: 'w-full' }}
+                        {% else %}
+                            {{ 'product-1' | placeholder_svg_tag: 'w-full' }}   
+                        {% endif %}
+                    </a>
+                </div>
+                <a href="{{ collection.url }}" class="font-medium">{{ collection.title }}</a>
+            </div>
+            
+        {% endfor %}
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Featured collections",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "default": "Top Categories",
+            "label": "Title"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Featured collections"
+        }
+    ]
+}
+{% endschema %}

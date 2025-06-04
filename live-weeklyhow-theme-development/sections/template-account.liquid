@@ -1,0 +1,57 @@
+<div class="flex flex-col gap-y-4 justify-start my-10">
+    <div class="flex flex-row justify-between">
+        <div>
+            <h1 class="text-xl font-bold">Account</h1>
+            <div>
+                <a href="{{ routes.account_logout_url }}" class="text-green-700 underline hover:text-green-900">Logout</a>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold">Account details</h2>
+            <div class="text-gray-700">
+                {% if customer.default_address %}
+                    <p>{{ customer.default_address.address1 }}</p>
+                  
+                    {% if customer.default_address.address2 != blank %}
+                      <p>{{ customer.default_address.address2 }}</p>
+                    {% endif %}
+                  
+                    <p>{{ customer.default_address.city }}, {% if customer.default_address.province_code %}{{ customer.default_address.province_code }}{% endif %}, {{ customer.default_address.country_code }}
+                    <p>{{ customer.default_address.zip_code }}</p>
+                    <p>{{ customer.default_address.phone }}</p>
+                  {% endif %}
+            </div>
+        </div>
+    </div>
+    
+
+    {% paginate customer.orders by 10 %}
+        <table class="table-fixed">
+            <thead>
+                <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                    <th class="px-4 py-3">Order ID</th>
+                    <th class="px-4 py-3">Date</th>
+                    <th class="px-4 py-3">Payment status</th>
+                    <th class="px-4 py-3">Fulfillment status</th>
+                    <th class="px-4 py-3">Total cost</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white">
+                {% for orders in customer.orders %}
+                    <tr class="text-gray-700">
+                        <td class="px-4 py-3 border">
+                            <a href="{{ orders.customer_url }}" class="text-blue-700 underline font-bold">
+                                {{ orders.name }}
+                            </a>
+                        </td>
+                        <td class="px-4 py-3 border">{{ orders.created_at | date: '%B %d %Y' }}</td>
+                        <td class="px-4 py-3 border">{{ orders.financial_status_label }}</td>
+                        <td class="px-4 py-3 border">{{ orders.fulfillment_status_label }}</td>
+                        <td class="px-4 py-3 border">{{ orders.total_price | money_with_currency }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endpaginate %}
+</div>

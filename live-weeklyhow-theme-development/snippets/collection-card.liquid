@@ -1,0 +1,28 @@
+<div class="max-w-2xl mx-auto">
+	<div class="bg-white shadow-md rounded-lg max-w-sm">
+		<a href="{{ collection.url }}">
+            {% if collection.image != nil %}
+                <div class="w-full overflow-hidden">
+                    {{ collection.image | image_url: width: 512 | image_tag: class: 'hover:scale-125 transition ease-in-out duration-300' }}
+                </div>
+            {% else %}
+                {% assign num = index | modulo: 4 %}
+                {% if num < 1 %}
+                    {{ 'product-4' | placeholder_svg_tag: 'w-full' }}
+                {% else %}
+                    {{ 'product-' | append: num | placeholder_svg_tag: 'w-full' }}
+                {% endif %}
+                
+            {% endif %}
+			
+        </a>
+
+		<div class="p-5">
+			<a href="{{ collection.url }}">
+				<h3 class="text-gray-900 font-semibold text-lg tracking-tight">
+					{{ collection.title }}
+				</h3>
+			</a>
+		</div>
+	</div>
+</div>

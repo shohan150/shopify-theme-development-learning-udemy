@@ -1,0 +1,121 @@
+{% if section.settings.enable_countdown == true %}
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-700 p-5 text-white">
+        {% for block in section.blocks %}
+            {% case block.type %}
+                {% when 'text' %}
+                    <div>
+                        <p class="text-body text-center md:text-left md:text-lg font-medium">{{ block.settings.announcement_text }}</p>
+                    </div>
+                {% when 'countdown' %}
+                    <div class="flex flex-row gap-x-5 p-4" id="countdown" data-date="{{ block.settings.future_date }}" data-time="{{ block.settings.hours_and_minutes }}">
+                        <div class="day flex flex-col">
+                            <span class="num text-lg font-bold"></span>
+                            <span class="word"></span>
+                        </div>
+
+                        <div class="hour flex flex-col">
+                            <span class="num text-lg font-bold"></span>
+                            <span class="word"></span>
+                        </div>
+
+                        <div class="min flex flex-col">
+                            <span class="num text-lg font-bold"></span>
+                            <span class="word"></span>
+                        </div>
+
+                        <div class="sec flex flex-col">
+                            <span class="num text-lg font-bold"></span>
+                            <span class="word"></span>
+                        </div>
+                    </div>
+                {% when 'button' %}
+                    <div>
+                        <a href="{{ block.settings.link_url }}" class="button primary-button">{{ block.settings.label }}</a>
+                    </div>
+            {% endcase %}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "Announcement Bar",
+    "tag": "section",
+    "limit": 1,
+    "max_blocks": 3,
+    "settings": [
+            {
+                "type": "checkbox",
+                "default": false,
+                "id": "enable_countdown",
+                "label": "Display the countdown?"
+            }
+        ],
+    "blocks": [
+        {
+            "type": "text",
+            "name": "Text",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "announcement_text",
+                    "default": "YOUR TEXT HERE",
+                    "label": "Announcement text"
+                }
+            ]
+        },
+        {
+            "type": "countdown",
+            "name": "Countdown Timer",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "future_date",
+                    "default": "18-01-2024",
+                    "label": "Future day from now",
+                    "info": "Formatting is dd-mm-yyyy [e.g.: 25-05-2028]"
+                },
+                {
+                    "type": "text",
+                    "id": "hours_and_minutes",
+                    "default": "10:30",
+                    "label": "Hours and Minutes",
+                    "info": "Formatting is hh:mm [e.g.: 10:30]"
+                }
+            ]
+        },
+        {
+            "type": "button",
+            "name": "Button",
+            "settings": [
+                {
+                    "type": "url",
+                    "id": "link_url",
+                    "label": "Page URL"
+                },
+                {
+                    "type": "text",
+                    "id": "label",
+                    "default": "Button",
+                    "label": "Label"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Announcement bar"
+        }
+    ]
+}
+{% endschema %}
+
+<script>
+    var countdownComponent = new countdown({
+        target: "#countdown",
+        dayWord: ' days',
+        hourWord: ' hours',
+        minWord: ' mins',
+        secWord: ' secs'
+    })
+</script>

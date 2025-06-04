@@ -1,0 +1,56 @@
+<div
+  class="flex items-center justify-center"
+>
+  <div class="px-40 py-20 bg-white rounded-md shadow-xl my-10">
+    <div class="flex flex-col items-center gap-y-5">
+      <h1 class="primary-text font-bold text-9xl">404</h1>
+
+      <h6 class="primary-text mb-2 text-2xl font-bold text-center md:text-3xl">
+        {{ section.settings.primary_text }}
+      </h6>
+
+      <div class="mb-8 text-center">
+        {{ section.settings.secondary_text }}
+      </div>
+
+
+        {% if section.settings.primary_button_text and section.settings.primary_button_url %}
+            <a href="{{ section.settings.primary_button_url }}"
+                class="button primary-button"
+            >{{ section.settings.primary_button_text }}</a>
+        {% endif %}
+      
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+    "name": "404 Page",
+    "settings": [
+        {
+            "type": "richtext",
+            "id": "primary_text",
+            "default": "<p>Oops! Page not found</p>",
+            "label": "Primary text"
+        },
+        {
+            "type": "richtext",
+            "id": "secondary_text",
+            "default": "<p>The page you’re looking for doesn’t exist.</p>",
+            "label": "Primary text"
+        },
+        {
+            "type": "text",
+            "id": "primary_button_text",
+            "default": "Go back",
+            "label": "Primary button text"
+        },
+        {
+            "type": "url",
+            "id": "primary_button_url",
+            "label": "Primary Button URL"
+        }
+    ]
+}
+{% endschema %}

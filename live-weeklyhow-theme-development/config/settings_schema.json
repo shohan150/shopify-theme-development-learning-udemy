@@ -1,0 +1,113 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "The Shrek Project",
+    "theme_version": "1.0.0",
+    "theme_author": "WeeklyHow & the community",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Basic settings",
+    "settings": [
+      {
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "definition": [
+          {
+            "type": "header",
+            "content": "Background"
+          },
+          {
+            "type": "color",
+            "id": "background",
+            "label": "Background",
+            "default": "#E1DFB6"
+          },
+          {
+            "type": "header",
+            "content": "Primary Buttons"
+          },
+          {
+            "type": "color",
+            "id": "primary_color",
+            "label": "Primary Color",
+            "default": "#8CB04E"
+          },
+          {
+            "type": "color",
+            "id": "on_primary_color",
+            "label": "On Primary Color",
+            "default": "#7C9C44"
+          },
+          {
+            "type": "color",
+            "id": "primary_border_color",
+            "label": "Primary Border Color",
+            "default": "#7C9C44"
+          },
+          {
+            "type": "header",
+            "content": "Secondary Buttons"
+          },
+          {
+            "type": "color",
+            "id": "secondary_color",
+            "label": "Secondary Color",
+            "default": "#5C452D"
+          },
+          {
+            "type": "color",
+            "id": "on_secondary_color",
+            "label": "On Secondary Color",
+            "default": "#4A3723"
+          },
+          {
+            "type": "color",
+            "id": "secondary_border_color",
+            "label": "Secondary Border Color",
+            "default": "#4A3723"
+          },
+          {
+            "type": "header",
+            "content": "Icons"
+          },
+          {
+            "type": "color",
+            "id": "icons_color",
+            "label": "Icon",
+            "default": "#4A3723"
+          },
+          {
+            "type": "header",
+            "content": "Texts"
+          },
+          {
+            "type": "color",
+            "id": "links_color",
+            "label": "Links",
+            "default": "#7a9244"
+          },
+          {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text",
+            "default": "#141414"
+          }
+        ],
+        "role": {
+          "background": "background",
+          "primary_button": "primary_color",
+          "on_primary_button": "on_primary_color",
+          "primary_button_border": "primary_border_color",
+          "secondary_button": "secondary_color",
+          "on_secondary_button": "on_secondary_color",
+          "secondary_button_border": "secondary_border_color",
+          "icons": "icons_color",
+          "links": "links_color",
+          "text": "text_color"
+        }
+      }
+    ]
+  }
+]

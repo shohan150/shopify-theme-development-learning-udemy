@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/**
+=======================================
+  TYPOGRAPHY
+=======================================
+**/
+@layer base {
+    :root {
+        --theme-h1-font-size: 1.75rem;
+    }
+    
+    h1 {
+        margin: 30px 0px;
+        font-size: var(--theme-h1-font-size);
+        font-weight: 700;
+    }
+    
+    h2 {
+        margin: 30px 0px;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    
+    h3 {
+        margin: 1rem 0px;
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+    
+    h4 {
+        margin: .75rem 0px;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+    
+    h5 {
+        margin: .5rem 0px;
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+    
+    .page-meta {
+       font-size: 0.75rem;
+       color: #343434; 
+       margin-bottom: 30px;
+    }
+    
+    .text-small {
+        @apply text-lg
+    }
+    
+    .text-medium {
+        @apply text-xl
+    }
+    
+    .text-large {
+        @apply text-2xl
+    }
+
+    /**
+    =======================================
+    MEDIAS
+    =======================================
+    **/
+
+    video, img {
+        width: 100%;
+    }
+
+    img {
+        margin: 18px 0px;
+        border-radius: 12px;
+    }
+}
+
+
+@layer components {
+    /**
+    =======================================
+    DROPDOWNS
+    =======================================
+    **/
+
+    #dropdownContainer {
+        display: none;
+    }
+
+    .dropdown:hover #dropdownContainer {
+        display: block;
+    }
+
+    body {
+        background: var(--{{ settings.color_schemes | first |  append: '-background' }});
+    }
+
+    .primary-text {
+        color: var(--{{ settings.color_schemes | first |  append: '-text-color' }})
+    }
+
+    .primary-button {
+        background-color: var(--{{ settings.color_schemes | first |  append: '-primary-color' }});
+        border: 0.05rem solid var(--{{ settings.color_schemes | first |  append: '-primary-border-color' }});
+    }
+
+    .primary-button:hover {
+        background-color: var(--{{ settings.color_schemes | first |  append: '-on-primary-color' }});
+    }
+
+    .secondary-button {
+        color: var(--{{ settings.color_schemes | first |  append: '-secondary-border-color' }}) !important;
+        background-color: var(--{{ settings.color_schemes | first |  append: '-secondary-color' }});
+        border: 0.05rem solid var(--{{ settings.color_schemes | first |  append: '-secondary-border-color' }});
+    }
+
+    .secondary-button:hover {
+        color: white !important;
+        background-color: var(--{{ settings.color_schemes | first |  append: '-on-secondary-color' }});
+    }
+
+    .button {
+        @apply font-medium rounded-lg px-5 py-3 text-center text-white flex flex-row gap-x-3;
+    }
+}
+
