@@ -1,0 +1,18 @@
+{
+  "name": "elizabeth",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"shopify theme dev\" \"npx @tailwindcss/cli -i ./src/tailwind.css -o ./assets/application.css --watch\"",
+    "setup": "concurrently \"shopify theme dev --store learning-shoopify-01\" \"npx @tailwindcss/cli -i ./src/tailwind.css -o ./assets/application.css --watch\""
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.8",
+    "concurrently": "^9.1.2",
+    "tailwindcss": "^4.1.8"
+  }
+}
