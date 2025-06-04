@@ -14,6 +14,7 @@
         <h1 class="text-xl font-bold truncate">{{ shop.name }}</h1>
       </div>
 
+      <!-- MOBILE MENU ICON -->
       <div class="-mr-2 -my-2 ml-3 md:hidden">
         <button
           x-on:click="mobileMenuOpen = true"
@@ -28,6 +29,9 @@
         {% for link in main_menu_linklist %}
           {% if link.links != blank %}
             {% assign link_handle = link.handle | replace: '-', '_' %}
+            {% comment %}
+              Setting initial alpine js variable to false. Then on button click, toggle that value.
+            {% endcomment %}
             <div class="relative" x-data="{ {{ link_handle }}: false }">
               <button
                 type="button"
@@ -74,8 +78,10 @@
           {% endif %}
         {% endfor %}
       </nav>
+
       <!-- CART BUTTON / ACCOUNT LINKS IF ENABLED -->
       <div class="hidden md:flex items-center justify-end md:flex-1 space-x-5">
+        <!-- Search bar -->
         <button
           x-on:click="searchBarOpen = true"
           type="button"
@@ -83,10 +89,13 @@
         >
           {% render 'icon-search' %}
         </button>
+
+        <!-- default cart url -->
         <a href="{{ routes.cart_url }}" class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900">
           {% render 'icon-shopping-bag' %}
         </a>
 
+        <!-- get account urls and assign each url as needed -->
         {% if shop.customer_accounts_enabled %}
           {% if customer %}
             <a href="{{ routes.account_url }}" class="text-base text-gray-500 hover:text-gray-900">account</a>
