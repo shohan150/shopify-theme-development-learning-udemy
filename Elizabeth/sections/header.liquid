@@ -202,6 +202,7 @@
   </div>
 </div>
 
+{% comment %} "name" defines the name of the section as it will appear in the Shopify theme editor's sidebar. When a merchant/user adds a section, they will see "Header" as an option. "settings" is an array (a list) that holds all the individual input fields or customization options for this "Header" section. Each object within this array defines one specific setting. {% endcomment %}
 {% schema %}
 {
   "name": "Header",
@@ -221,3 +222,15 @@
   ]
 }
 {% endschema %}
+
+{%- comment -%}
+  What is a section schema?
+
+  Basically, schema is a liquid tag that allows you to define or describe a section. It also allows you to reuse a section and customize the content of a section. You can also use schema tag to create blocks in a section. So if you have a section where you have to create multiple items in a list, then you can use blocks.
+
+  You can only use one schema tag per section. And also you can only use JSON inside of the schema tag. JSON is JavaScript object notation where you can use attributes and apply values to this attributes. However, in Shopify liquid or in our case the schema tag, you can only use the following ten attributes.
+
+  This are name, tag, class, limit, settings, blocks, max_blocks, presets, default and locales.
+
+  There are two new attributes and that is the enabled_on and disabled_on. But I believe those are just optional. Now if you start using attributes outside of the following list or if you start using attributes that don't belong in this list, your schema is not going to work.
+{%- endcomment -%}
