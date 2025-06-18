@@ -29,3 +29,22 @@
     </main>
   </body>
 </html>
+
+{% comment %}
+  {{ content_for_header }}: This Liquid object is a placeholder that Shopify automatically populates with various <meta> tags, <link> tags, <script> tags, and other elements that need to be in the <head> section of your HTML.
+  What it includes:
+  1. Shopify's internal scripts and styles: These are essential for core Shopify functionalities like analytics, currency conversion, cart management, and more.
+  2. App integrations: When you install Shopify apps, many of them inject their necessary JavaScript and CSS files (or other configurations) into the <head> through content_for_header. This allows apps to function correctly on your storefront without you having to manually add their code.
+  3. Shopify analytics scripts: Tracks visitor behavior and sales data.
+  4. Shop Pay and other checkout-related scripts.
+  5. Various meta tags related to SEO, social sharing (Open Graph, Twitter Cards), and other platform-level necessities.
+  Why it's used: It ensures that all necessary platform-level scripts, app integrations, and vital meta tags are included in your theme's <head> without you having to manage them manually. This is critical for theme compatibility and app functionality. You should always include {{ content_for_header }} in the <head> section of your theme.liquid file.
+{% endcomment %}
+
+{% comment %}
+  {{ content_for_layout }}: This Liquid object is the primary placeholder for the main content of the specific page template being rendered. It effectively acts as a dynamic body for your page.
+  What it includes:
+  1. Template-specific output: Depending on which page the user is viewing, content_for_layout will render the content from the corresponding Liquid template file. If it's a product page, it will render the content of templates/product.liquid (or templates/product.json if using JSON templates, which then includes Liquid sections).  If it's a collection page, it will render the content of templates/collection.liquid (or templates/collection.json). If it's the homepage, it will render the content of templates/index.liquid (or templates/index.json). And so on for pages, blogs, articles, cart, checkout, etc.
+  Sections: Modern Shopify themes (OS 2.0 themes) largely use sections. When templates/*.json files are used, they define which sections are included on a given page, and content_for_layout renders the output of those sections.
+  Why it's used: It allows you to define a consistent theme.liquid layout (like the <html>, <head>, <body>, header, and footer structure) that wraps all your different page types. The core unique content for each page is then dynamically injected by content_for_layout into this wrapper. This promotes modularity and prevents redundant code across different page templates.
+{% endcomment %}
