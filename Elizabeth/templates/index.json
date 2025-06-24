@@ -1,11 +1,13 @@
 {
-    "sections": {
-        "featured-collection": {
-            "type": "featured-collection",
-            "settings": {
-                "featured_collection": "all"
-            }
-        }
-    },
-    "order": ["featured-collection"]
+  "sections": {
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "featured_collection": "all"
+      }
+    }
+  },
+  "order": ["featured-collection"]
 }
+
+// index.json er behaviour kichuta different. onno .json e template nam bole diye, shei template create korte hoi sections folder e. Tobe index.json alada karon ekhane bola sections gulo k home page e sudhu move e kora jabe na borong subidha moto add kora jabe. Jei section icca add korba. Dorkar hle multiple times add korba.
