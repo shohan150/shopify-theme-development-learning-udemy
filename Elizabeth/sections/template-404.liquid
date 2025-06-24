@@ -4,6 +4,7 @@
     <p class="text-base md:text-xl leading-normal">{{ section.settings.subtext_title }}</p>
   </div>
   <div class="my-4">
+    {% comment %} if admin has not set any url yet. Set homepage url {% endcomment %}
     {% if section.settings.button_url == blank %}
       {% assign shop_url = shop.secure_url %}
     {% else %}
