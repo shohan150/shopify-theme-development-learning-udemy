@@ -8,7 +8,6 @@ body {
 }
 
 .header-intro {
-  width: 100%;
   color: #fff;
   font-weight: 500;
   text-align: center;
@@ -218,6 +217,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  margin-left: 104px;
   width: 100%;
 }
 
@@ -358,18 +358,22 @@ body {
   }
 
   .product-gallery {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
+    max-width: 100vw;
   }
 
   .product-main-swiper {
+    width: 100vw;
     height: 500px;
     margin: unset !important;
   }
 
   .product-thumbs-swiper {
-    height: 80px;
+    width: calc(100vw - 20px);
+    height: 84px;
     margin: unset !important;
+    padding-left: 20px !important;
   }
 
   .product-thumbs-swiper .swiper-slide {
@@ -379,6 +383,7 @@ body {
 
   .swiper-navigation-container {
     margin-top: 15px;
+    margin-left: unset;
   }
 
   .product-title {
@@ -391,10 +396,12 @@ body {
 
   .pdp-footer {
     grid-template-columns: repeat(1, 1fr);
+    margin: 20px 0;
   }
 
   .pdp-footer .item {
     justify-content: center;
+    margin: 10px 0;
   }
 }
 
