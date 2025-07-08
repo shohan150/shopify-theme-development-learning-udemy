@@ -1,0 +1,71 @@
+<header class="site-header">
+  <h4 class="header-intro">HEUTE VERSANDKOSTENFREI</h4>
+  <div class="header-container">
+    <div class="header-left">
+      {% if section.settings.logo != blank %}
+        <a href="{{ routes.root_url }}" class="header__logo-link">
+          <img
+            src="{{ section.settings.logo | image_url: width: '250px' }}"
+            alt="{{ shop.name }}"
+            class="header__logo-image"
+            width="250px"
+            height="auto"
+            loading="lazy"
+          >
+        </a>
+      {% else %}
+        <a href="{{ routes.root_url }}" class="header__shop-name">
+          {{ shop.name }}
+        </a>
+      {% endif %}
+    </div>
+
+    <nav class="header-center">
+      {% liquid
+        assign menu_to_display = linklists[section.settings.menu]
+
+        if menu_to_display == blank or menu_to_display.links == blank
+          assign menu_to_display = linklists['main-menu']
+        endif
+      %}
+
+      <ul class="header__menu">
+        {% for link in menu_to_display.links %}
+          <li class="header__menu-item">
+            <a href="{{ link.url }}" class="header__menu-link">
+              {{ link.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <div class="header-right">
+      <a href="{{ routes.cart_url }}" class="header__cart-link">
+        {% render 'cart-icon' %}
+        {% if cart.item_count > 0 %}
+          <span class="header__cart-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Header Navigation Menu"
+    }
+  ]
+}
+{% endschema %}

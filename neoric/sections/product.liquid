@@ -1,0 +1,135 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<section class="product-section">
+  <div class="product-container">
+    <div class="product-gallery-wrapper">
+      <div class="product-gallery">
+        <div class="swiper product-thumbs-swiper">
+          <div class="swiper-wrapper">
+            {% for media in product.media %}
+              <div class="swiper-slide">
+                <img
+                  src="{{ media | image_url: width: 100 }}"
+                  alt="{{ media.alt | escape }}"
+                  width="100"
+                  height="100"
+                  loading="lazy"
+                >
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="swiper product-main-swiper">
+          <div class="swiper-wrapper">
+            {% for media in product.media %}
+              <div class="swiper-slide">
+                <img
+                  src="{{ media | image_url: width: 1000 }}"
+                  alt="{{ media.alt | escape }}"
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                >
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-navigation-container">
+        <div class="swiper-button-prev product-swiper-prev"></div>
+        <div class="swiper-button-next product-swiper-next"></div>
+      </div>
+    </div>
+
+    <div class="product-info">
+      <h1 class="product-title">{{ product.title }}</h1>
+      <p class="product-type">{{ product.type }}</p>
+
+      <div class="product-pricing">
+        <span class="product-old-price">{{ product.compare_at_price | money }}</span>
+        <span class="product-discount-price">{{ product.price | money }}</span>
+      </div>
+
+      {% if current_variant.available %}
+        <p class="product-stock-status in-stock">Auf Lager, in 2-3 Tagen bei dir</p>
+      {% else %}
+        <p class="product-stock-status out-of-stock">Out of Stock</p>
+      {% endif %}
+
+      {% form 'product', product, id: 'product-form' %}
+        <button
+          type="submit"
+          name="add"
+          class="add-to-cart-button"
+          {% if current_variant.available == false %}
+            disabled
+          {% endif %}
+        >
+          {% if current_variant.available %}
+            {{ section.settings.add_to_cart_button_text }}
+          {% else %}
+            Sold Out
+          {% endif %}
+        </button>
+      {% endform %}
+    </div>
+  </div>
+
+  <div class="pdp-footer">
+    {% for i in (1..3) %}
+      <div class="item">
+        {% render 'quality-icon' %}
+        <div>
+          <h6>100% Qualität</h6>
+          <p>Dank weichem Silikon</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h5 class="ending-content">Beschreibung etc. nicht von Nöten</h5>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Initialize the thumbnail Swiper
+    const isMobile = window.innerWidth < 768;
+    const productThumbsSwiper = new Swiper('.product-thumbs-swiper', {
+      spaceBetween: 10,
+      slidesPerView: 4,
+      watchSlidesProgress: true,
+      direction: isMobile ? 'horizontal' : 'vertical',
+    });
+
+    // Initialize the main product Swiper
+    const productMainSwiper = new Swiper('.product-main-swiper', {
+      spaceBetween: 10,
+      loop: true,
+      navigation: {
+        nextEl: '.product-swiper-next',
+        prevEl: '.product-swiper-prev',
+      },
+      thumbs: {
+        swiper: productThumbsSwiper,
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [
+    {
+      "type": "text",
+      "id": "add_to_cart_button_text",
+      "label": "Add to Cart Button Text",
+      "default": "In den Einkaufswagen"
+    }
+  ]
+}
+{% endschema %}
