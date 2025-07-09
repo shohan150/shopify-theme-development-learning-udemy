@@ -1,0 +1,73 @@
+<section class="featured-collection-section">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% liquid
+      assign featured_collection = collections[section.settings.collection]
+
+      if featured_collection == blank
+        assign featured_collection = collections.all
+      endif
+    %}
+
+    {% if featured_collection != blank and featured_collection.products_count > 0 %}
+      <div class="product-grid">
+        {% for product in featured_collection.products limit: 4 %}
+          <div class="product-card">
+            <a href="{{ product.url | within: collection }}" class="product-card__link">
+              <div class="product-card__image-wrapper">
+                <img
+                  src="{{ product.featured_image | image_url: width: 400 }}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  loading="lazy"
+                  class="product-card__image"
+                  width="200px"
+                  height="200px"
+                >
+              </div>
+
+              <h3 class="product-card__title">{{ product.title }}</h3>
+
+              <div class="product-card__price">
+                {% if product.compare_at_price > product.price %}
+                  <span class="product-card__old-price">{{ product.compare_at_price | money }}</span>
+                  <span class="product-card__discount-price">{{ product.price | money }}</span>
+                {% else %}
+                  <span class="product-card__current-price">{{ product.price | money }}</span>
+                {% endif %}
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured Products"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select the collection to display. Only the first 4 products will be shown."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection (4 Products)",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
