@@ -1,0 +1,140 @@
+{% if pagination.pages > 1 %}
+  <nav role="navigation" class="pagination-nav" aria-label="Pagination">
+    <ul class="pagination-list">
+      {% if pagination.previous %}
+        <li class="pagination-item">
+          <a
+            href="{{ pagination.previous.url }}"
+            class="pagination-link pagination-link--prev"
+            aria-label="Previous page"
+          >
+            Prev
+          </a>
+        </li>
+      {% endif %}
+
+      {% for part in pagination.parts %}
+        <li class="pagination-item">
+          {% if part.is_link %}
+            <a href="{{ part.url }}" class="pagination-link" aria-label="Go to page {{ part.title }}">
+              {{ part.title }}
+            </a>
+          {% else %}
+            {% if part.title == pagination.current_page %}
+              <span class="pagination-link pagination-link--current" aria-current="page">
+                {{ part.title }}
+              </span>
+            {% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+
+      {% if pagination.next %}
+        <li class="pagination-item">
+          <a
+            href="{{ pagination.next.url }}"
+            class="pagination-link pagination-link--next"
+            aria-label="Next page"
+          >
+            Next
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}
+
+{% stylesheet %}
+  .pagination-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 100px;
+  }
+
+  .pagination-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .pagination-item {
+    display: flex;
+  }
+
+  .pagination-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 15px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .pagination-link:hover {
+    background-color: #f0f0f0;
+    color: #000;
+    border-color: #999;
+  }
+
+  .pagination-link--current {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+    cursor: default;
+  }
+
+  .pagination-link--current:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+  }
+
+  .pagination-link--dots {
+    background-color: transparent;
+    border-color: transparent;
+    cursor: default;
+    color: #666;
+  }
+
+  .pagination-link--dots:hover {
+    background-color: transparent;
+    color: #666;
+    border-color: transparent;
+  }
+
+  .pagination-link--prev,
+  .pagination-link--next {
+    min-width: unset;
+    padding: 0 20px;
+  }
+
+  @media (max-width: 480px) {
+    .pagination-link {
+      min-width: 35px;
+      height: 35px;
+      font-size: 14px;
+      padding: 0 10px;
+    }
+
+    .pagination-list {
+      gap: 5px;
+    }
+
+    .pagination-link--prev,
+    .pagination-link--next {
+      padding: 0 15px;
+    }
+  }
+{% endstylesheet %}
