@@ -1,0 +1,86 @@
+<section class="collection-slider-section">
+  <div class="container">
+    <div class="swiper collection-swiper">
+      <div class="swiper-wrapper">
+        {% for collection in collections %}
+          {% if collection.all_products_count > 0 or collection.image %}
+            <div class="swiper-slide collection-slide">
+              <a href="{{ collection.url }}" class="collection-slide__link">
+                <div class="collection-slide__image-wrapper">
+                  {% if collection.image %}
+                    <img
+                      src="{{ collection.image | image_url: width: 600 }}"
+                      alt="{{ collection.title | escape }}"
+                      loading="lazy"
+                      class="collection-slide__image"
+                      width="1500"
+                      height="800"
+                    >
+                  {% else %}
+                    <div class="collection-slide__image-placeholder"></div>
+                  {% endif %}
+                </div>
+
+                <h3 class="collection-slide__title">{{ collection.title }}</h3>
+
+                <button class="collection-slide__button">
+                  {{ section.settings.button_text }}
+                </button>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="swiper-button-prev collection-swiper-prev"></div>
+      <div class="swiper-button-next collection-swiper-next"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const collectionSwiperContainer = document.querySelector('.collection-swiper');
+    const collectionSlides = collectionSwiperContainer
+      ? collectionSwiperContainer.querySelectorAll('.swiper-slide').length
+      : 0;
+
+    if (collectionSwiperContainer && collectionSlides > 0) {
+      new Swiper('.collection-swiper', {
+        loop: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        speed: 800,
+        slidesPerView: 1,
+        spaceBetween: 0,
+
+        navigation: {
+          nextEl: '.collection-swiper-next',
+          prevEl: '.collection-swiper-prev',
+        },
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Slider",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

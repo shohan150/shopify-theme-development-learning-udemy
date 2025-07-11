@@ -1,5 +1,5 @@
 <header class="site-header">
-  <h4 class="header-intro">HEUTE VERSANDKOSTENFREI</h4>
+  <h4 class="header-intro">{{ section.settings.header_intro }}</h4>
   <div class="header-container">
     <div class="header-left">
       {% if section.settings.logo != blank %}
@@ -74,6 +74,12 @@
 {
   "name": "Header",
   "settings": [
+    {
+      "type": "text",
+      "id": "header_intro",
+      "label": "Banner Notice",
+      "default": "HEUTE VERSANDKOSTENFREI"
+    },
     {
       "type": "image_picker",
       "id": "logo",

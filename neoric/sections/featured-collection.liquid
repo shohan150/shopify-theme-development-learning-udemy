@@ -14,7 +14,7 @@
 
     {% if featured_collection != blank and featured_collection.products_count > 0 %}
       <div class="product-grid">
-        {% for product in featured_collection.products limit: 4 %}
+        {% for product in featured_collection.products limit: 8 %}
           <div class="product-card">
             <a href="{{ product.url | within: collection }}" class="product-card__link">
               <div class="product-card__image-wrapper">
@@ -65,7 +65,7 @@
   ],
   "presets": [
     {
-      "name": "Featured Collection (4 Products)",
+      "name": "Featured Collection",
       "category": "Collection"
     }
   ]

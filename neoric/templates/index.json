@@ -5,7 +5,11 @@
       "settings": {
         "featured_collection": "all"
       }
+    },
+    "collections-slider": {
+      "type": "collections-slider",
+      "settings": {}
     }
   },
-  "order": ["featured-collection"]
+  "order": ["collections-slider", "featured-collection"]
 }
