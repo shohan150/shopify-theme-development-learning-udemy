@@ -472,7 +472,9 @@ body {
 }
 
 .featured-collection-section {
-  padding: 60px 20px;
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: auto;
   background-color: #f8f8f8;
   text-align: center;
 }
