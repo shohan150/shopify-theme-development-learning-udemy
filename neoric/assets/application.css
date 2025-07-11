@@ -571,10 +571,17 @@ body {
   color: #999;
   font-size: 14px;
   margin-right: 8px;
+  font-weight: 600;
 }
 
 .product-card__discount-price {
   color: #e63946;
+  font-weight: 600;
+}
+
+.product-card__current-price {
+  color: #e63946;
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {

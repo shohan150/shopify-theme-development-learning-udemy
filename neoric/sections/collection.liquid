@@ -1,11 +1,4 @@
-{% comment %}
-  This section is used in the collection template to render collection page
-  listing all products within a collection.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
-
-<h1>{{ collection.title }}</h1>
+<h1 class="collection-header">{{ collection.title }}</h1>
 
 <div class="collection-products">
   {% paginate collection.products by 20 %}
@@ -22,8 +15,15 @@
           %}
         {% endif %}
         <div class="collection-product__content">
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
+          <a href="{{ product.url }}">{{ product.title }}</a>
+          <div>
+            {% if product.compare_at_price > product.price %}
+              <span class="product-card__old-price">{{ product.compare_at_price | money }}</span>
+              <span class="product-card__discount-price">{{ product.price | money }}</span>
+            {% else %}
+              <span class="product-card__current-price">{{ product.price | money }}</span>
+            {% endif %}
+          </div>
         </div>
       </div>
     {% endfor %}
@@ -33,9 +33,40 @@
 </div>
 
 {% stylesheet %}
+  .collection-header {
+    text-align: center;
+    margin: 45px 0 65px;
+  }
   .collection-products {
+    max-width: 1200px;
+    margin: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    padding-bottom: 100px;
+  }
+
+  .collection-product {
+    background-color: beige;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .collection-product__content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  .collection-product__content a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.25rem;
+    font-weight: bold;
   }
 {% endstylesheet %}
 
