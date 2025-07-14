@@ -94,12 +94,21 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Initialize the thumbnail Swiper
-    const isMobile = window.innerWidth < 768;
     const productThumbsSwiper = new Swiper('.product-thumbs-swiper', {
       spaceBetween: 10,
       slidesPerView: 4,
       watchSlidesProgress: true,
-      direction: isMobile ? 'horizontal' : 'vertical',
+      direction: 'vertical',
+      breakpoints: {
+        // When window width is 0px to 767px (mobile), set direction to horizontal
+        0: {
+          direction: 'horizontal',
+        },
+        // When window width is 768px or wider (desktop), set direction to vertical
+        768: {
+          direction: 'vertical',
+        },
+      },
     });
 
     // Initialize the main product Swiper
