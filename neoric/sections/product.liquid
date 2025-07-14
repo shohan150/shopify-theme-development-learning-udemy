@@ -94,8 +94,9 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Initialize the thumbnail Swiper
+    const isMobile = window.innerWidth < 768;
     const productThumbsSwiper = new Swiper('.product-thumbs-swiper', {
-      spaceBetween: 10,
+      spaceBetween: 0,
       slidesPerView: 4,
       watchSlidesProgress: true,
       direction: 'vertical',
