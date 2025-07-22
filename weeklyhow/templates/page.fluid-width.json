@@ -1,8 +1,0 @@
-{
-    "sections": {
-        "template-page-full-width": {
-            "type": "template-page-full-width"
-        }
-    },
-    "order": ["template-page-full-width"]
-}

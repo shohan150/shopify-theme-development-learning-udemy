@@ -1,9 +1,0 @@
-package.json
-package-lock.json
-
-release-notes.md
-.prettierrc.json
-node_modules/
-.github/
-.vscode/
-src/
