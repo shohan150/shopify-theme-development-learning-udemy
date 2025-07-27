@@ -1,0 +1,29 @@
+assets/: Contains all your theme's static assets like images, JavaScript files (.js), CSS files (.css), web fonts, and SVGs.
+
+    base.css, component-*.css: Core CSS files.
+
+    global.js: Core JavaScript.
+
+config/: Contains configuration files for your theme.
+
+    settings_schema.json: Defines all the global theme settings that appear in the theme editor (colors, typography, social media links, etc.).
+
+    settings_data.json: Stores the actual values of the settings configured in the theme editor. Do not commit this file to Git if you're working in a team or want a clean theme for distribution.
+
+layout/: Contains the main layout files for your theme.
+
+    theme.liquid: The main layout file. It's the wrapper for almost every page on your Shopify store. It includes the <head>, <body>, and renders other sections and templates.
+
+    password.liquid: Layout for the store's password page.
+
+locales/: Contains translation files (.json) for your theme. Each file represents a language (e.g., en.default.json, de.json). This is where all static text strings in your theme are defined for multi-language support.
+
+sections/: Contains individual, reusable content blocks that can be added, removed, and reordered on pages via the theme editor. Each file represents a distinct section (e.g., header.liquid, featured-collection.liquid, main-product.liquid).
+
+Each section file contains its HTML (Liquid), CSS (<style> tags or linked CSS), JavaScript (<script> tags), and a {% schema %} JSON block that defines its configurable settings and blocks.
+
+snippets/: Contains small, reusable Liquid code modules that don't have their own settings in the theme editor. They are "included" or "rendered" by other Liquid files (e.g., product-card.liquid, icon-cart.liquid).
+
+templates/: Contains the Liquid files that define the structure and content for different page types on your store (e.g., index.liquid for the homepage, product.liquid for product pages, collection.liquid for collection pages, page.liquid for static pages).
+
+In OS 2.0, many of these are now JSON templates (e.g., index.json, product.json, collection.json). These JSON files define which sections are used on that page type and their default settings. The actual section code lives in sections/.
