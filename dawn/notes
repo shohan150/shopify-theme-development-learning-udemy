@@ -24,6 +24,4 @@ Each section file contains its HTML (Liquid), CSS (<style> tags or linked CSS), 
 
 snippets/: Contains small, reusable Liquid code modules that don't have their own settings in the theme editor. They are "included" or "rendered" by other Liquid files (e.g., product-card.liquid, icon-cart.liquid).
 
-templates/: Contains the Liquid files that define the structure and content for different page types on your store (e.g., index.liquid for the homepage, product.liquid for product pages, collection.liquid for collection pages, page.liquid for static pages).
-
-In OS 2.0, many of these are now JSON templates (e.g., index.json, product.json, collection.json). These JSON files define which sections are used on that page type and their default settings. The actual section code lives in sections/.
+templates/: Contains the Liquid files that define the structure and content for different page types on your store (e.g., index.liquid for the homepage, product.liquid for product pages, collection.liquid for collection pages, page.liquid for static pages). In OS 2.0, many of these are now JSON templates (e.g., index.json, product.json, collection.json). These JSON files define which sections are used on that page type and their default settings. The actual section code lives in sections/.
