@@ -1,3 +1,14 @@
+{% comment %} This Liquid code snippet, likely from the meta-tags snippet in Dawn, is responsible for generating Open Graph (OG) and Twitter Card meta tags. These tags control how your store's pages appear when shared on social media platforms like Facebook, X (formerly Twitter), and LinkedIn. {% endcomment %}
+
+{% comment %}
+   og_title: Assigns the page title or, if it's not available, the store name.
+
+  og_url: Assigns the canonical URL of the page. This prevents social platforms from showing different versions of the same content.
+
+  og_type: Dynamically assigns a content type based on the request.page_type. For a product page, it's product; for a blog post, it's article. This helps platforms categorize and display the content more effectively.
+
+  og_description: Uses the page's meta description or the store's description.
+{% endcomment %}
 {%- liquid
   assign og_title = page_title | default: shop.name
   assign og_url = canonical_url | default: shop.url
@@ -21,6 +32,9 @@
 <meta property="og:type" content="{{ og_type }}">
 <meta property="og:description" content="{{ og_description | escape }}">
 
+{% comment %}
+  og:image: The code checks for a page_image (e.g., a product image or a blog post featured image) and provides a secure URL for it. This is crucial for showing a visual preview when the page is shared. It also includes the image's dimensions, which helps platforms render the image correctly.
+{% endcomment %}
 {%- if page_image -%}
   <meta property="og:image" content="http:{{ page_image | img_url: 'master' }}">
   <meta property="og:image:secure_url" content="https:{{ page_image | img_url: 'master' }}">
@@ -28,11 +42,38 @@
   <meta property="og:image:height" content="{{ page_image.height }}">
 {%- endif -%}
 
+{% comment %}
+  The conditional statement {%- if request.page_type == 'product' -%} ensures that the code inside the block only runs on pages that are of the product type.
+
+  <meta property="og:price:amount" ...>: This tag specifies the price of the product.
+  product.price: A Liquid object that retrieves the price of the product.
+  | money_without_currency: A Shopify filter that formats the price to remove the currency symbol (e.g., "$19.99" becomes "19.99").
+  | strip_html: A filter that removes any HTML tags, ensuring the content is clean and just the number.
+
+  <meta property="og:price:currency" ...>: This tag defines the currency of the product's price using the ISO 4217 currency code (e.g., USD, EUR, CAD). It removes the currency symbol ($ or €) and specifies the currency code (like USD or EUR).
+  cart.currency.iso_code: A Liquid object that retrieves the currency code from the store's current cart settings.
+
+  So, if a store's base currency is USD and the customer is viewing a product priced at $19.99, the code will output:
+  og:price:amount: 19.99
+  og:price:currency: USD
+
+  If a store uses a currency converter app and a customer switches the currency to Saudi Riyal (SAR), the theme will update the price displayed on the page to the converted amount (e.g., 75.00). In this case, the Liquid code would likely output:
+  og:price:amount: 75.00
+  og:price:currency: SAR
+
+  The key takeaway is that the Liquid code is responsible for formatting the price and specifying the currency code for social media platforms, but it doesn't perform the actual currency conversion. The conversion is handled by Shopify's internal systems or a third-party app.
+{% endcomment %}
 {%- if request.page_type == 'product' -%}
   <meta property="og:price:amount" content="{{ product.price | money_without_currency | strip_html }}">
   <meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
 {%- endif -%}
 
+{% comment %}
+  These tags are specific to Twitter and offer a similar function to Open Graph but with a few differences.
+  twitter:site: If a Twitter link is set in the theme settings, this tag includes the store's Twitter handle (e.g., @Shopify).
+  twitter:card: summary_large_image is a common card type that displays the title, description, and a large, prominent image.
+  twitter:title and twitter:description: These tags work just like their Open Graph counterparts, using the same dynamically assigned variables to ensure consistency.
+{% endcomment %}
 {%- if settings.social_twitter_link != blank -%}
   <meta name="twitter:site" content="{{ settings.social_twitter_link | split: 'twitter.com/' | last | prepend: '@' }}">
 {%- endif -%}

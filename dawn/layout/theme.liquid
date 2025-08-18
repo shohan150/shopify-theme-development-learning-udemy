@@ -19,18 +19,38 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    {% comment %} if you want to change the theme color dynamically inside code {% endcomment %}
     <meta name="theme-color" content="">
+    {% comment %} SEO related {% endcomment %}
     <link rel="canonical" href="{{ canonical_url }}">
+    {% comment %}
+      a performance optimization technique that tells the browser to pre-connect to a domain.
+
+      How it Works: When a browser loads a webpage, it has to perform several steps to connect to a new server:
+      DNS lookup: Finding the IP address for the domain name.
+      TCP handshake: Establishing a secure connection.
+      TLS negotiation: Securing the connection with an SSL certificate.
+
+      Why it's Fast: By using rel="preconnect", you're telling the browser to start this process in the background, even before it needs to download any resources from that domain.
+      https://cdn.shopify.com: This is a Content Delivery Network (CDN) that Shopify uses to serve assets like images, scripts, and stylesheets. Since a Shopify store will almost always load resources from this CDN, pre-connecting to it saves valuable milliseconds, which improves overall page load speed.
+
+      crossorigin: This attribute specifies that the request will be made with CORS (Cross-Origin Resource Sharing). It's necessary for resources like fonts and certain scripts.
+    {% endcomment %}
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
     {%- endif -%}
-
+    {% comment %} This Liquid code checks whether both the header and body fonts selected in the Shopify theme settings are system fonts. If both are system fonts (meaning fonts already available on the user's device), the code inside the block is skipped. If either the header or body font is not a system font (i.e., a web font that needs to be loaded from an external source), the code inside the block runs. In this case, it adds a <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin> tag to the HTML. This tag tells the browser to establish an early connection to Shopify's font CDN, which can speed up the loading of web fonts. {% endcomment %}
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
+    {% comment %}
+      The first line outputs the page_title, which is the main title for the current page—such as a product name, collection, or blog post. Next, if there are any current_tags (for example, if a user is viewing a filtered collection), it appends "– tagged" followed by a comma-separated list of those tags. This makes it clear which filters are active. Then, the code checks if the current_page is not the first page (useful for paginated content). If so, it adds "– Page X" to indicate the current page number, helping users and search engines understand the page context.
+
+      Finally, the code checks if the page_title already contains the shop's name. If it does not, it appends "– [shop name]" to ensure the store's branding is included in the title, but avoids repeating it if it's already present. This approach creates clear, descriptive, and SEO-friendly page titles that adapt to the current page's context.
+    {% endcomment %}
     <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
